@@ -1,3 +1,4 @@
 node_modules
 divide_problem
-*.xml
+.idea/*.xml
+package-lock.json
