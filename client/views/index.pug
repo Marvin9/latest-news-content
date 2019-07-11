@@ -1,0 +1,40 @@
+html
+    head
+        include /views/layout/head.pug
+        body(style="opacity:1;transition:1s")
+            include /views/layout/nav.pug
+            div.uk-container.uk-container-large.uk-margin.uk-padding
+                h1
+                    b Major #[u latest news] source at one place.
+                div.uk-padding
+                    div.uk-grid(class="uk-child-width-1-3@m" uk-grid)
+                        each news in top_news
+                            a.uk-card.uk-card-default.uk-card-body(href=news.link, target="_blank")
+                                span.uk-text-small
+                                    b From #{news.from}
+                                h3.uk-card-title.uk-text-bold #{news.title}
+                                p #{news.description}
+                                span.uk-text-meta #{news.time}
+                        each news, i in news_contents
+                           if i%4 === 0
+                            a.uk-card-secondary.uk-card-body.uk-text-center(class="uk-width-1-1@m", href=news.link, target="_blank")
+                                span.uk-text-small
+                                    b From #{news.from}
+                                h3.uk-card-title.uk-text-bold #{news.title}
+                                p #{news.description}
+                                span.uk-text-meta #{news.time}
+                           else if i%2 !== 0
+                             a.uk-card.uk-card-body.uk-card-default(href=news.link, target="_blank")
+                                span.uk-text-small
+                                    b From #{news.from}
+                                h3.uk-card-title.uk-text-bold #{news.title}
+                                p #{news.description}
+                                span.uk-text-meta #{news.time}
+                           else
+                               a.uk-card.uk-card-body.uk-card-primary(href=news.link, target="_blank")
+                                   span.uk-text-small
+                                       b From #{news.from}
+                                   h3.uk-card-title.uk-text-bold #{news.title}
+                                   p #{news.description}
+                                   span.uk-text-meta #{news.time}
+        include  /views/layout/scripts.pug

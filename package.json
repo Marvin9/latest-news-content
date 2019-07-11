@@ -1,0 +1,21 @@
+{
+  "name": "top-latest-news",
+  "version": "1.0.0",
+  "description": "it will scrape latest news from top news sites and will show latest news",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mayursiinh",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "koa": "^2.7.0",
+    "koa-pug": "^3.0.0-2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "nedb": "^1.8.0",
+    "pug": "^2.0.4",
+    "request": "^2.88.0"
+  }
+}

@@ -1,0 +1,18 @@
+body {
+    background: #ecf0f1;
+}
+
+
+.card-with-img h3.uk-card-title {
+    margin:0;
+}
+
+a:hover {
+    text-decoration: none;
+    color: initial;
+
+}
+
+a:nth-child(1), a:nth-child(2), a:nth-child(3) {
+    opacity : 0;
+}

@@ -1,0 +1,21 @@
+html
+    include /views/layout/head.pug
+    body
+            include /views/layout/nav.pug
+            div.uk-container.uk-container-large.uk-margin.uk-padding
+                h1
+                    b From #{page_title}
+                div.uk-padding
+                    div.uk-grid(class="uk-child-width-1-3@m" uk-grid)
+                        each news, i in requested_page_contents
+                            if(i % 2 === 0)
+                                a.uk-card.uk-card-default.uk-card-body(href=news.link, target="_blank")
+                                    h3.uk-card-title.uk-text-bold #{news.title}
+                                    p #{news.description}
+                                    span.uk-text-meta #{news.time}
+                            else
+                                a.uk-card.uk-card-secondary.uk-card-body(href=news.link, target="_blank")
+                                    h3.uk-card-title.uk-text-bold #{news.title}
+                                    p #{news.description}
+                                    span.uk-text-meta #{news.time}
+    include /views/layout/scripts.pug
