@@ -42,7 +42,9 @@ async function scrape_hindu(){
 
                 dataset.time = $('body > div.container-main > section:nth-child(3) > div > div.main > div > div:nth-child('+i+') div.news-comments-area').text().trim();
                 //hindu_obj.push(dataset);
-                db.insert(dataset);
+
+                if(valid_dataset(dataset))
+                    db.insert(dataset);
             }
 
             resolve(hindu_obj);
@@ -71,7 +73,8 @@ async function scrape_nytimes(){
                     dataset.time = "";
 
                 //nyc_obj.push(dataset);
-                db.insert(dataset);
+                if(valid_dataset(dataset))
+                    db.insert(dataset);
             }
 
             resolve(nyc_obj);
@@ -108,13 +111,20 @@ async function scrape_bbc(){
                 dataset.location = $('#news-top-stories-container > div > div > div > div > div:nth-child('+i+') li a span').html();
 
                 //bbc_obj.push(dataset);
-                db.insert(dataset);
+                if(valid_dataset(dataset))
+                    db.insert(dataset);
             }
 
             resolve(bbc_obj);
         });
     });
 };
+
+function valid_dataset(dataset) {
+    if(dataset.link == "" || (dataset.title == "" && dataset.description == ""))
+        return 0;
+    return 1;
+}
 
 module.exports = {
     scrape_hindu,
