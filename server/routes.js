@@ -5,14 +5,20 @@ const scrape = require('./scrape');
 
 let news_contents = [], top_news = [];
 
-find_last_updated_value().then(() => {});
+find_last_updated_value().then(()=>{});
+
+router.get('/', async(ctx, next) => {
+            find_last_updated_value().then(() => {
+                next();
+            });
+});
 
 router.get('/', async(ctx) => {
-            ctx.render('index', {
-                top_news,
-                news_contents,
-                page_title : "News"
-            });
+    ctx.render('index', {
+        top_news,
+        news_contents,
+        page_title : "News"
+    });
 });
 
 router.get('/:newsc', async(ctx) => {
@@ -34,9 +40,11 @@ router.get('/error/404', async(ctx) => {
     ctx.body = "Page not found";
 });
 
-function difference_of_time(l, c){return Math.floor(-((l%10000000)/60000) + ((c%10000000)/60000));}
+function difference_of_time(l, c){let k = Math.floor(-((l%10000000)/60000) + ((c%10000000)/60000)); return k < 0 ? -k : k;}
 
 function set_news_contents_and_top_news_variable() {
+    news_contents =[];
+    top_news=[];
     db.find({news : true}, (e, topnews) => {
         topnews.map((news_obj) => {
             if(news_obj.top)
