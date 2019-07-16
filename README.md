@@ -12,3 +12,4 @@ Each news at least contains title, it's source and link given to that article. N
 - UiKit(Front end library)
 - Cheerio, request(Web scraping)
 
+![home-page](https://github.com/Marvin9/news-content/blob/master/img.png)
