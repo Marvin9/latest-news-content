@@ -8,8 +8,14 @@ let news_contents = [], top_news = [];
 find_last_updated_value().then(()=>{});
 
 router.get('/', async(ctx, next) => {
+<<<<<<< HEAD
     await find_last_updated_value();
     await next();
+=======
+            find_last_updated_value().then(() => {
+                await next();
+            });
+>>>>>>> f023ce603cf918aa66b3cee5e6059f90f3323160
 });
 
 router.get('/', async(ctx) => {
