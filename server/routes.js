@@ -9,7 +9,7 @@ find_last_updated_value().then(()=>{});
 
 router.get('/', async(ctx, next) => {
             find_last_updated_value().then(() => {
-                next();
+                await next();
             });
 });
 
