@@ -5,17 +5,11 @@ const scrape = require('./scrape');
 
 let news_contents = [], top_news = [];
 
-find_last_updated_value().then(()=>{});
+find_last_updated_value();
 
 router.get('/', async(ctx, next) => {
-<<<<<<< HEAD
     await find_last_updated_value();
     await next();
-=======
-            find_last_updated_value().then(() => {
-                await next();
-            });
->>>>>>> f023ce603cf918aa66b3cee5e6059f90f3323160
 });
 
 router.get('/', async(ctx) => {
@@ -50,7 +44,7 @@ function difference_of_time(l, c){let k = Math.floor(-((l%10000000)/60000) + ((c
 async function set_news_contents_and_top_news_variable() {
     news_contents =[];
     top_news=[];
-    db.find({news : true}, (e, topnews) => {
+    await db.find({news : true}, (e, topnews) => {
         topnews.map((news_obj) => {
             if(news_obj.top)
                 top_news = [...top_news,news_obj];
