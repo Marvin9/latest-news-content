@@ -8,9 +8,8 @@ let news_contents = [], top_news = [];
 find_last_updated_value().then(()=>{});
 
 router.get('/', async(ctx, next) => {
-            find_last_updated_value().then(() => {
-                next();
-            });
+    await find_last_updated_value();
+    await next();
 });
 
 router.get('/', async(ctx) => {
@@ -42,7 +41,7 @@ router.get('/error/404', async(ctx) => {
 
 function difference_of_time(l, c){let k = Math.floor(-((l%10000000)/60000) + ((c%10000000)/60000)); return k < 0 ? -k : k;}
 
-function set_news_contents_and_top_news_variable() {
+async function set_news_contents_and_top_news_variable() {
     news_contents =[];
     top_news=[];
     db.find({news : true}, (e, topnews) => {
@@ -58,30 +57,28 @@ function set_news_contents_and_top_news_variable() {
 
 async function find_last_updated_value() {
     return new Promise((resolve, reject) => {
-        resolve(db.find({l_up_key : 1}, (err, val) => {
+        db.find({l_up_key : 1}, (err, val) => {
             if(err) reject(err);
             if(val.length > 1)
                 db.remove({}, {multi : true}, () => update_news(undefined));
             else
-                update_news(val[0]);
-        }));
+		update_news(val[0]);
+        });
+	resolve(1);
     });
 }
 
-function update_news(val) {
+async function update_news(val) {
     if(val == undefined || difference_of_time(val.last_updated, Date.now()) > 30) {
         if(val == undefined)
             db.insert({l_up_key: 1, last_updated : Date.now()});
         else
             db.update({l_up_key : 1},  {last_updated: Date.now()}, {});
         db.remove({news:true}, {multi:true});
-        Promise.all([scrape.scrape_hindu(), scrape.scrape_bbc(), scrape.scrape_nytimes()])
-            .then(() => {
-                console.log("Scraped");
-                set_news_contents_and_top_news_variable();
-            });
+        await Promise.all([scrape.scrape_hindu(), scrape.scrape_bbc(), scrape.scrape_nytimes()]).then(() => {console.log("Scrapped");});
+	await set_news_contents_and_top_news_variable();
     } else {
-        set_news_contents_and_top_news_variable();
+        await set_news_contents_and_top_news_variable();
     }
 }
 
