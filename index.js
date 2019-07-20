@@ -8,13 +8,14 @@ const routers = require('./server/routes');
 const pug = new Pug({
     viewPath : './client/views',
     basedir : './client',
-    app
+    app : app
 });
 
 app.use(serve(__dirname + '/client'));
 app.use(routers.routes());
 
+const PORT = process.env.PORT || 8000;
 
-app.listen(8000, () => {
-    console.log("Server running at : 8000");
+app.listen(PORT, () => {
+    console.log("Server running at : ", PORT);
 });
