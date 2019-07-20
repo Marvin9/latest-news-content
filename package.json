@@ -4,7 +4,8 @@
   "description": "it will scrape latest news from top news sites and will show latest news",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node index.js",
+    "start" : "node index.js"
   },
   "author": "mayursiinh",
   "license": "MIT",
