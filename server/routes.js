@@ -5,8 +5,6 @@ const scrape = require('./scrape');
 
 let news_contents = [], top_news = [];
 
-find_last_updated_value();
-
 router.get('/', async(ctx, next) => {
     await find_last_updated_value();
     await next();
