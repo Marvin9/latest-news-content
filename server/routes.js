@@ -11,11 +11,15 @@ router.get('/', async(ctx, next) => {
 });
 
 router.get('/', async(ctx) => {
-    ctx.render('index', {
-        top_news,
-        news_contents,
-        page_title : "News"
-    });
+    ctx.redirect('/all/news');
+});
+
+router.get('/all/news', async(ctx) => {
+  ctx.render('index', {
+    top_news,
+    news_contents,
+    page_title : "News"
+  });
 });
 
 router.get('/:newsc', async(ctx) => {
